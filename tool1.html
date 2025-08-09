@@ -1,1 +1,149 @@
-<li>test</li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Motivational Quote Generator">
+    <title>Motivational Quote Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #222;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            flex: 1;
+            width: 100%;
+        }
+
+        section {
+            margin: 2rem 0;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #quote {
+            font-size: 1.5rem;
+            color: #222;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        #author {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            #quote {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Accessibility improvements */
+        button:focus, a:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+
+        [aria-hidden="true"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Motivational Quote Generator</h1>
+        <p class="subtitle">Get inspired with a new quote every click!</p>
+    </header>
+
+    <main>
+        <section id="quote-section">
+            <div id="quote">Click the button to generate a quote!</div>
+            <div id="author"></div>
+            <button onclick="generateQuote()">Generate Quote</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Your Name. Hosted on GitHub Pages.</p>
+    </footer>
+
+    <script>
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+            { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" }
+        ];
+
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quote = quotes[randomIndex];
+            document.getElementById('quote').textContent = quote.text;
+            document.getElementById('author').textContent = `- ${quote.author}`;
+        }
+    </script>
+</body>
+</html>
