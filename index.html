@@ -137,11 +137,6 @@
                 <!-- Projects will be populated by JavaScript -->
             </div>
         </section>
-        <ul>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="https://example.com">External Site</a></li>
-        </ul>
 
         <section id="links">
             <h2>External Links</h2>
@@ -158,8 +153,8 @@
     <script>
         // Project data
         const projects = [
-            { name: "Project One", url: "https://github.com/username/project-one", description: "A brief description of Project One." },
-            { name: "Project Two", url: "https://github.com/username/project-two", description: "A brief description of Project Two." }
+            { name: "Project One", url: "tool1.html", description: "A brief description of Project One." },
+            { name: "Project Two", url: "tool2.html", description: "A brief description of Project Two." }
             // Add or remove projects here
         ];
 
@@ -176,7 +171,7 @@
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.name}</a>
+                <a href="${item.url}" ${item.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}>${item.name}</a>
                 ${item.description ? `<p>${item.description}</p>` : ''}
             `;
             return card;
