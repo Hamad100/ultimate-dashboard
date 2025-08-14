@@ -1,1 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamad's Futuristic Dashboard</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Orbitron', sans-serif;
+        background: radial-gradient(circle at top, #0a0f1f, #000);
+        color: #00f3ff;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    header { text-align: center; margin-bottom: 2rem; }
+    h1 {
+        font-size: 3rem;
+        text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+    }
+    .subtitle { font-size: 1.2rem; color: #aafaff; }
+    .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 2rem;
+    }
+    .card {
+        background: rgba(0, 20, 40, 0.8);
+        border: 2px solid #00f3ff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 0 15px #00f3ff44;
+        transition: 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px #00f3ff88;
+    }
+    .number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #fff;
+        text-shadow: 0 0 10px #00f3ff;
+    }
+    .label { font-size: 1rem; color: #aafaff; }
+    h2 {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #00f3ff;
+        padding-bottom: 0.5rem;
+    }
+    .link-grid, .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+    }
+    a { color: #00f3ff; text-decoration: none; }
+    a:hover { text-shadow: 0 0 5px #00f3ff; }
+    footer { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #88faff; }
+</style>
+</head>
+<body>
 
+<header>
+    <h1>Hamad's Futuristic Dashboard</h1>
+    <p class="subtitle">Live Metrics • Projects • Links</p>
+</header>
+
+<!-- Live System Metrics -->
+<section class="dashboard">
+    <div class="card"><div class="number" id="cpuLoad">0%</div><div class="label">CPU Load</div></div>
+    <div class="card"><div class="number" id="memoryUsage">0%</div><div class="label">Memory Usage</div></div>
+    <div class="card"><div class="number" id="netSpeed">0 Mbps</div><div class="label">Network Speed</div></div>
+    <div class="card"><div class="number" id="uptime">0d 0h 0m</div><div class="label">System Uptime</div></div>
+    <div class="card"><div class="number" id="deadlineCountdown">00:00:00</div><div class="label">Next Deadline</div></div>
+</section>
+
+<!-- Projects -->
+<section>
+    <h2>Projects</h2>
+    <div class="project-grid" id="project-grid"></div>
+</section>
+
+<!-- Links -->
+<section>
+    <h2>External Links</h2>
+    <div class="link-grid" id="link-grid"></div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Hamad. Built with 💙 and neon.</p>
+</footer>
+
+<script>
+    // Simulated live metrics
+    function updateMetrics() {
+        document.getElementById("cpuLoad").textContent = (Math.random() * 100).toFixed(1) + "%";
+        document.getElementById("memoryUsage").textContent = (Math.random() * 100).toFixed(1) + "%";
+        document.getElementById("netSpeed").textContent = (Math.random() * 500).toFixed(0) + " Mbps";
+    }
+    setInterval(updateMetrics, 2000);
+    updateMetrics();
+
+    // System Uptime counter
+    let uptimeSeconds = 0;
+    setInterval(() => {
+        uptimeSeconds++;
+        let days = Math.floor(uptimeSeconds / 86400);
+        let hours = Math.floor((uptimeSeconds % 86400) / 3600);
+        let minutes = Math.floor((uptimeSeconds % 3600) / 60);
+        document.getElementById("uptime").textContent = `${days}d ${hours}h ${minutes}m`;
+    }, 1000);
+
+    // Next Deadline Countdown (example: 5 days from now)
+    let deadline = new Date();
+    deadline.setDate(deadline.getDate() + 5);
+    setInterval(() => {
+        let now = new Date();
+        let diff = deadline - now;
+        if (diff <= 0) {
+            document.getElementById("deadlineCountdown").textContent = "00:00:00";
+            return;
+        }
+        let hrs = Math.floor(diff / (1000 * 60 * 60));
+        let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let secs = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById("deadlineCountdown").textContent =
+            `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    // Projects and Links
+    const projects = [
+        { name: "Project One", url: "#", description: "Neon powered tool" },
+        { name: "Project Two", url: "#", description: "Futuristic design project" },
+        { name: "Project Three", url: "#", description: "AI Automation" }
+    ];
+    const links = [
+        { name: "GitHub", url: "https://github.com" },
+        { name: "LinkedIn", url: "https://linkedin.com" },
+        { name: "Portfolio", url: "#" }
+    ];
+    function createCard(item) {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<a href="${item.url}" target="_blank"><strong>${item.name}</strong></a>
+                         ${item.description ? `<p>${item.description}</p>` : ''}`;
+        return div;
+    }
+    projects.forEach(p => document.getElementById('project-grid').appendChild(createCard(p)));
+    links.forEach(l => document.getElementById('link-grid').appendChild(createCard(l)));
+</script>
+
+</body>
+</html>
